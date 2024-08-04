@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 extension ASSET on String {
-  toPNG() {
-    return "assets/images/$this.png";
+  String toPNG() {
+    return "assets/images/png/$this.png";
+  }
+
+  String toSVG() {
+    return "assets/images/svg/$this.svg";
   }
 }
 

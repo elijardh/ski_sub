@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:ski_sub/screens/home_screen/home_screen.dart';
 import 'package:ski_sub/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:ski_sub/shared/shared.dart';
 import 'package:ski_sub/shared/ski_colors.dart';
@@ -113,7 +114,9 @@ class _SignInScreenState extends State<SignInScreen> {
             30.vSpace,
             Button(
               buttonName: 'Sign In',
-              onTap: () {},
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const HomeScreen(),
+              )),
             ),
           ],
         ),
