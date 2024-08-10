@@ -7,17 +7,20 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const HomeViewHeader(),
-          40.vSpace,
-          const QuickActionSection(),
-          40.vSpace,
-          const RecentActivitySection(
-            isNotEmpty: true,
-          ),
-        ],
+    return SizedBox(
+      height: MediaQuery.sizeOf(context).height,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const HomeViewHeader(),
+            40.vSpace,
+            const QuickActionSection(),
+            40.vSpace,
+            const RecentActivitySection(
+              isNotEmpty: true,
+            ),
+          ],
+        ),
       ),
     );
   }
