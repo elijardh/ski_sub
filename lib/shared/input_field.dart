@@ -8,6 +8,8 @@ class InputField extends StatelessWidget {
   final Widget? prefixWidget;
   final bool obscure;
   final Color? fillColor;
+  final String? Function(String?)? validator;
+  final TextInputType? textInputType;
   const InputField({
     super.key,
     required this.textEditingController,
@@ -17,6 +19,8 @@ class InputField extends StatelessWidget {
     this.hint,
     this.fillColor,
     this.obscure = false,
+    this.validator,
+    this.textInputType,
   });
 
   @override
@@ -24,6 +28,8 @@ class InputField extends StatelessWidget {
     return TextFormField(
       controller: textEditingController,
       obscureText: obscure,
+      validator: validator,
+      keyboardType: textInputType,
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,

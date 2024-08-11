@@ -4,8 +4,10 @@ import 'package:ski_sub/shared/ski_colors.dart';
 class Button extends StatelessWidget {
   final String buttonName;
   final VoidCallback onTap;
+  final bool loading;
   const Button({
     super.key,
+    this.loading = false,
     required this.buttonName,
     required this.onTap,
   });
@@ -21,14 +23,22 @@ class Button extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
         ),
         child: Center(
-          child: Text(
-            buttonName,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-              fontSize: 14,
-            ),
-          ),
+          child: loading
+              ? const SizedBox(
+                  height: 15,
+                  width: 15,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
+                )
+              : Text(
+                  buttonName,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                  ),
+                ),
         ),
       ),
     );
