@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:ski_sub/models/vehicle.dart';
 import 'package:ski_sub/screens/car_details_screen/widgets/widgets.dart';
 import 'package:ski_sub/shared/shared.dart';
 import 'package:ski_sub/utils/extensions.dart';
 
 class CarDetailsScreen extends StatelessWidget {
-  const CarDetailsScreen({super.key});
+  final Vehicle vehicle;
+  final String tag;
+  const CarDetailsScreen({
+    super.key,
+    required this.vehicle,
+    required this.tag,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +31,18 @@ class CarDetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const CarImageSection(),
+            CarImageSection(
+              tag: tag,
+              carImages: vehicle.image ?? [],
+            ),
             20.vSpace,
-            const CarInfoSection(),
+            CarInfoSection(
+              vehicle: vehicle,
+            ),
             20.vSpace,
-            const CarSpecSection(),
+            CarSpecSection(
+              vehicle: vehicle,
+            ),
             20.vSpace,
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),

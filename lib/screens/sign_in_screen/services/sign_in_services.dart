@@ -8,6 +8,9 @@ class SignInServices {
 
   Future<User> signIn(Map<String, dynamic> data) async {
     try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+
+      //preferences.clear();
       final response = await _dio.post(
         'account/login/',
         data: data,
@@ -16,7 +19,6 @@ class SignInServices {
       if (response.statusCode != 200) {
         throw response.data['message'];
       }
-      SharedPreferences preferences = await SharedPreferences.getInstance();
 
       String token = response.data['token'];
       preferences.setString('bearerToken', token);

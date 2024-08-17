@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:ski_sub/models/vehicle.dart';
 import 'package:ski_sub/shared/ski_colors.dart';
 import 'package:ski_sub/utils/extensions.dart';
 
 class CarInfoSection extends StatelessWidget {
-  const CarInfoSection({super.key});
+  final Vehicle vehicle;
+
+  const CarInfoSection({
+    super.key,
+    required this.vehicle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,17 +18,17 @@ class CarInfoSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Hyundia Santafe',
-                style: TextStyle(
+                '${vehicle.model?.make?.name} ${vehicle.model?.name}',
+                style: const TextStyle(
                   fontWeight: FontWeight.w800,
                   fontSize: 16,
                 ),
               ),
-              Icon(
+              const Icon(
                 Icons.favorite,
                 color: Colors.red,
                 size: 35,
@@ -30,9 +36,9 @@ class CarInfoSection extends StatelessWidget {
             ],
           ),
           5.vSpace,
-          const Text(
-            'Year: 2015',
-            style: TextStyle(
+          Text(
+            'Year: ${vehicle.year}',
+            style: const TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 12,
             ),
@@ -40,7 +46,7 @@ class CarInfoSection extends StatelessWidget {
           5.vSpace,
           Text.rich(
             TextSpan(
-              text: '75,000 NGN',
+              text: '${vehicle.pricePerDay} NGN',
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
@@ -76,33 +82,35 @@ class CarInfoSection extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CarInfoTile(
+                  CarInfoTile(
                     icon: 'user_icon',
-                    title: '3 Passengers',
+                    title: '${vehicle.numberOfPassengers} Passengers',
                   ),
                   10.vSpace,
-                  const CarInfoTile(
+                  CarInfoTile(
                     icon: 'air_con_icon',
-                    title: 'Air Conditioning',
+                    title: vehicle.airConditioning!
+                        ? 'Air Conditioning'
+                        : 'No Air Conditioning',
                   ),
                   10.vSpace,
-                  const CarInfoTile(
+                  CarInfoTile(
                     icon: 'gear_icon',
-                    title: 'Automatic',
+                    title: '${vehicle.transmission}',
                   ),
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CarInfoTile(
+                  CarInfoTile(
                     icon: 'door_icon',
-                    title: '4 Doors',
+                    title: '${vehicle.numberOfDoors} Doors',
                   ),
                   10.vSpace,
-                  const CarInfoTile(
+                  CarInfoTile(
                     icon: 'fuel_icon',
-                    title: 'Fuel Into: Full to Full',
+                    title: '${vehicle.fuelType}',
                   ),
                 ],
               ),

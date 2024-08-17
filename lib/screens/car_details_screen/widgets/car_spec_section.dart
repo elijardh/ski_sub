@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:ski_sub/models/vehicle.dart';
 import 'package:ski_sub/utils/extensions.dart';
 
 class CarSpecSection extends StatelessWidget {
-  const CarSpecSection({super.key});
+  final Vehicle vehicle;
+  const CarSpecSection({
+    super.key,
+    required this.vehicle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +26,23 @@ class CarSpecSection extends StatelessWidget {
           20.vSpace,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(
-              3,
-              (index) => const CarSpecCard(),
-            ),
+            children: [
+              CarSpecCard(
+                metric: 'hp',
+                subTitle: '${vehicle.maxPowerHp}',
+                title: 'Max. Power',
+              ),
+              CarSpecCard(
+                metric: 'mph',
+                subTitle: '${vehicle.topSpeedMph}',
+                title: 'Max. Speed',
+              ),
+              CarSpecCard(
+                metric: 'mph',
+                subTitle: '${vehicle.topSpeedMph}',
+                title: 'Max. Speed',
+              ),
+            ],
           ),
         ],
       ),
@@ -33,7 +51,15 @@ class CarSpecSection extends StatelessWidget {
 }
 
 class CarSpecCard extends StatelessWidget {
-  const CarSpecCard({super.key});
+  final String title;
+  final String subTitle;
+  final String metric;
+  const CarSpecCard({
+    super.key,
+    required this.metric,
+    required this.subTitle,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -49,25 +75,25 @@ class CarSpecCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Max. Power',
-            style: TextStyle(
+          Text(
+            title,
+            style: const TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 12,
             ),
           ),
           5.vSpace,
-          const Text(
-            '320',
-            style: TextStyle(
+          Text(
+            subTitle,
+            style: const TextStyle(
               fontWeight: FontWeight.w800,
               fontSize: 24,
             ),
           ),
           5.vSpace,
-          const Text(
-            'hp',
-            style: TextStyle(
+          Text(
+            metric,
+            style: const TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 13,
             ),

@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:ski_sub/models/vehicle.dart';
 import 'package:ski_sub/screens/car_details_screen/car_details_screen.dart';
 import 'package:ski_sub/shared/ski_colors.dart';
 import 'package:ski_sub/utils/extensions.dart';
 
 class AllCarsSection extends StatelessWidget {
-  const AllCarsSection({super.key});
+  final List<Vehicle> vehicles;
+  final bool loading;
+  const AllCarsSection({
+    super.key,
+    required this.vehicles,
+    required this.loading,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,32 +26,48 @@ class AllCarsSection extends StatelessWidget {
           ),
         ),
         15.vSpace,
-        GridView.count(
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: 2,
-          shrinkWrap: true,
-          mainAxisSpacing: 20,
-          crossAxisSpacing: 20,
-          childAspectRatio: 0.75,
-          children: List.generate(
-            10,
-            (index) => const VehicleCard(),
-          ),
-        ),
+        Builder(builder: (context) {
+          if (loading) {
+            return const Center(
+                child: SizedBox(
+              height: 40,
+              width: 40,
+              child: CircularProgressIndicator(),
+            ));
+          }
+          return GridView.count(
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            mainAxisSpacing: 20,
+            crossAxisSpacing: 20,
+            childAspectRatio: 0.75,
+            children: vehicles
+                .map(
+                  (vehicle) => VehicleCard(vehicle: vehicle),
+                )
+                .toList(),
+          );
+        }),
       ],
     );
   }
 }
 
 class VehicleCard extends StatelessWidget {
-  const VehicleCard({super.key});
+  final Vehicle vehicle;
+  const VehicleCard({super.key, required this.vehicle});
 
   @override
   Widget build(BuildContext context) {
+    String tag = UniqueKey().toString();
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => const CarDetailsScreen(),
+          builder: (context) => CarDetailsScreen(
+            tag: tag,
+            vehicle: vehicle,
+          ),
         ),
       ),
       child: Container(
@@ -56,32 +79,38 @@ class VehicleCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Image.asset(
-              'vehicle_place_holder'.toPNG(),
-              height: 114,
-              width: 149,
+            Hero(
+              tag: tag,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  vehicle.image!.first.image!,
+                  height: 114,
+                  width: 149,
+                ),
+              ),
             ),
             10.vSpace,
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Hyundia Santafe',
-                  style: TextStyle(
+                  '${vehicle.model?.make?.name} ${vehicle.model?.name}',
+                  style: const TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 14,
                   ),
                 ),
-                Icon(
+                const Icon(
                   Icons.favorite,
                   color: Colors.red,
                 ),
               ],
             ),
             10.vSpace,
-            const Text(
-              'Year: 2015',
-              style: TextStyle(
+            Text(
+              'Year: ${vehicle.year}',
+              style: const TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 10,
               ),
@@ -89,7 +118,7 @@ class VehicleCard extends StatelessWidget {
             10.vSpace,
             Text.rich(
               TextSpan(
-                  text: '75,000 NGN',
+                  text: '${vehicle.pricePerDay} NGN',
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 13,
