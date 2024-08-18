@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ski_sub/screens/car_rental_screen/car_rental_screen_view_model.dart';

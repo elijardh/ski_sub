@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ski_sub/models/vehicle.dart';
+import 'package:ski_sub/screens/car_booking_screen/car_booking_screen.dart';
 import 'package:ski_sub/screens/car_details_screen/widgets/widgets.dart';
 import 'package:ski_sub/shared/shared.dart';
 import 'package:ski_sub/utils/extensions.dart';
@@ -48,7 +49,13 @@ class CarDetailsScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Button(
                 buttonName: 'Continue',
-                onTap: () {},
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CarBookingScreen(
+                      vehicle: vehicle,
+                    ),
+                  ),
+                ),
               ),
             ),
           ],

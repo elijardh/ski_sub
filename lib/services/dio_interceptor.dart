@@ -10,8 +10,6 @@ class DioInterceptor extends Interceptor {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
     String? bearerToken = preferences.getString('bearerToken');
-
-    log(bearerToken.toString());
     options.headers = {
       'Content-Type': 'application/json',
       'Accept-Encoding': 'gzip, deflate, br',
@@ -25,7 +23,6 @@ class DioInterceptor extends Interceptor {
 
   @override
   Future onError(DioException err, ErrorInterceptorHandler handler) async {
-    log(err.response.toString());
     super.onError(err, handler);
   }
 }

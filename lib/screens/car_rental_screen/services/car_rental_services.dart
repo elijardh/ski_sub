@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:ski_sub/models/vehicle.dart';
 import 'package:ski_sub/services/app_services.dart';
 import 'package:ski_sub/services/dio_services.dart';
@@ -21,7 +20,6 @@ class CarRentalServices {
           )
           .toList();
     } catch (e) {
-      log(e.toString());
       rethrow;
     }
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ski_sub/screens/home_screen/home_screen.dart';
 import 'package:ski_sub/screens/sign_up_screen/sign_up_view_model.dart';
 import 'package:ski_sub/shared/button.dart';
 import 'package:ski_sub/shared/custom_back_button.dart';
