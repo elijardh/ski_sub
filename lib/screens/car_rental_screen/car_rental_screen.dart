@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ski_sub/screens/car_rental_screen/car_rental_screen_view_model.dart';
@@ -16,6 +14,14 @@ class CarRentalScreen extends StatefulWidget {
 
 class _CarRentalScreenState extends State<CarRentalScreen> {
   final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    _searchController.addListener(
+      () {},
+    );
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -56,8 +62,13 @@ class _CarRentalScreenState extends State<CarRentalScreen> {
                 InputField(
                   textEditingController: _searchController,
                   fillColor: Colors.white,
-                  prefixWidget: const Icon(
-                    Icons.search,
+                  onEditingComplete: (keyword) =>
+                      value.getCars(keyword: keyword),
+                  prefixWidget: GestureDetector(
+                    onTap: () => value.getCars(keyword: _searchController.text),
+                    child: const Icon(
+                      Icons.search,
+                    ),
                   ),
                 ),
                 20.vSpace,

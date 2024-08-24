@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:ski_sub/models/vehicle.dart';
 import 'package:ski_sub/services/app_services.dart';
 import 'package:ski_sub/services/dio_services.dart';
@@ -6,9 +5,14 @@ import 'package:ski_sub/services/dio_services.dart';
 class CarRentalServices {
   final _dio = AppServices.locate<DioServices>().dio;
 
-  Future<List<Vehicle>> getVehicles() async {
+  Future<List<Vehicle>> getVehicles({
+    Map<String, dynamic>? param,
+  }) async {
     try {
-      final response = await _dio.get('car/api/cars/');
+      final response = await _dio.get(
+        'car/api/cars/',
+        queryParameters: param,
+      );
 
       if (response.statusCode != 200) {
         throw response.data['message'];

@@ -5,7 +5,7 @@ import 'package:ski_sub/screens/car_rental_screen/services/car_rental_services.d
 
 class CarRentalScreenViewModel extends ChangeNotifier {
   CarRentalScreenViewModel() {
-    _getCars();
+    getCars();
   }
   final CarRentalServices _services = CarRentalServices();
   bool loading = false;
@@ -17,11 +17,19 @@ class CarRentalScreenViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _getCars() async {
+  Future<void> getCars({String? keyword}) async {
     try {
       setLoading(true);
 
-      vehicles = await _services.getVehicles();
+      Map<String, dynamic> param = {};
+
+      if (keyword != null) {
+        param.addAll({
+          'search': keyword,
+        });
+      }
+
+      vehicles = await _services.getVehicles(param: param);
     } catch (e) {
       BotToast.showText(text: e.toString());
     } finally {

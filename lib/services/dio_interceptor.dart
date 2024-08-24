@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,7 +7,10 @@ class DioInterceptor extends Interceptor {
       RequestOptions options, RequestInterceptorHandler handler) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
+    //await preferences.clear();
+
     String? bearerToken = preferences.getString('bearerToken');
+
     options.headers = {
       'Content-Type': 'application/json',
       'Accept-Encoding': 'gzip, deflate, br',

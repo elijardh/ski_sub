@@ -10,6 +10,7 @@ class InputField extends StatelessWidget {
   final Color? fillColor;
   final String? Function(String?)? validator;
   final TextInputType? textInputType;
+  final void Function(String?)? onEditingComplete;
   const InputField({
     super.key,
     required this.textEditingController,
@@ -21,6 +22,7 @@ class InputField extends StatelessWidget {
     this.obscure = false,
     this.validator,
     this.textInputType,
+    this.onEditingComplete,
   });
 
   @override
@@ -30,6 +32,7 @@ class InputField extends StatelessWidget {
       obscureText: obscure,
       validator: validator,
       keyboardType: textInputType,
+      onSaved: onEditingComplete,
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
